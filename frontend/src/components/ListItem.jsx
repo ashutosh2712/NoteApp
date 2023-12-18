@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ListItem = ({ note }) => {
   return (
-    <div>
+    <Link to={`/note/${note.id}`}>
         <ul>
             <li>{note.body}</li>
         </ul>
-    </div>
+    </Link>
   )
 }
 
