@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
+import ArrowLeft from '../assets/leftArrow.png'
 const NotePage = () => { 
 
   const { id } = useParams();
@@ -19,7 +19,14 @@ const NotePage = () => {
   }
 
   return (
-    <div><p>{note?.body}</p></div>
+    <div className='note'>
+      <div className="note-header">
+        <h3>
+          <Link to="/"><img src={ArrowLeft} alt="" /></Link>
+        </h3>
+      </div>
+      <textarea defaultValue={note?.body}></textarea>
+    </div>
   )
 }
 
