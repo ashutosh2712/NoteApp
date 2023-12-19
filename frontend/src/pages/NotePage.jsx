@@ -30,6 +30,16 @@ const NotePage = () => {
     })
   }
 
+  const deleteNote = async () => {
+    fetch(`http://127.0.0.1:8000/api/notes/${noteId}/delete/`, {
+      method:'DELETE',
+      headers : {
+        'Content-Type' : 'application/json'
+      }
+    })
+    history('/')
+  }
+
   let handleSubmit = () => {
     updateNote()
     history('/')
@@ -41,6 +51,7 @@ const NotePage = () => {
         <h3>
           <Link to="/"><img src={ArrowLeft} alt=""  onClick={handleSubmit}/></Link>
         </h3>
+          <button onClick={deleteNote}>Delete</button>
       </div>
       <textarea onChange={(e) => {setNote({...note, 'body' :e.target.value})}} defaultValue={note?.body}></textarea>
     </div>
