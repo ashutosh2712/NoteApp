@@ -13,6 +13,13 @@ const NotePage = () => {
      getNote()
   },[noteId])
 
+  function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+const csrftoken = getCookie('csrftoken');
+
   const getNote = async () => {
     if (noteId == 'new') return
     const response = await fetch(`http://127.0.0.1:8000/api/notes/${noteId}`)
@@ -24,7 +31,8 @@ const NotePage = () => {
     fetch(`http://127.0.0.1:8000/api/notes/create/`, {
           method: "POST",
           headers : {
-            'Content-Type' : 'application/json'
+            'Content-Type' : 'application/json',
+            'X-CSRFToken': csrftoken,
           },
           body : JSON.stringify(note)
 
@@ -35,7 +43,8 @@ const NotePage = () => {
     fetch(`http://127.0.0.1:8000/api/notes/${noteId}/update/`, {
           method: "PUT",
           headers : {
-            'Content-Type' : 'application/json'
+            'Content-Type' : 'application/json',
+            'X-CSRFToken': csrftoken,
           },
           body : JSON.stringify(note)
 
@@ -46,7 +55,8 @@ const NotePage = () => {
     fetch(`http://127.0.0.1:8000/api/notes/${noteId}/delete/`, {
       method:'DELETE',
       headers : {
-        'Content-Type' : 'application/json'
+        'Content-Type' : 'application/json',
+        'X-CSRFToken': csrftoken,
       }
     })
     history('/')
